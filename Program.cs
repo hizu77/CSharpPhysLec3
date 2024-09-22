@@ -9,11 +9,8 @@ namespace WindowsFormsApp1
     static class Program
     {
         [STAThread]
-        public static void Main(string[] arguments)
+        public static void Main()
         {
-            var radius = float.Parse(arguments[0]);
-            var speed = float.Parse(arguments[1]);
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
