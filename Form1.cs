@@ -56,11 +56,11 @@ namespace WindowsFormsApp1
             var omega = _velocity / _radius;
 
             // ====== Оси X и Y с разметкой ======
-            // Ось X (время), начиная с (0, центр)
+            // Ось X (время), начиная с (0, центрY)
             g.DrawLine(Pens.Black, 0, _centerY, Width, _centerY);
             g.DrawString("Time (s)", Font, Brushes.Black, Width - 60, _centerY + 20);
 
-            // Ось Y (высота), начиная с (0, 0)
+            // Ось Y (высота), начиная с (1, 0)
             g.DrawLine(Pens.Black, 1, 0, 1, Height);
 
             // Разметка оси X (время) начиная с нуля
@@ -79,31 +79,28 @@ namespace WindowsFormsApp1
                 g.DrawString($"{heightMark}", Font, Brushes.Black, 1, i - 5);
             }
 
-            // ====== Линия движения ======
-            g.DrawLine(Pens.Red, 0, _centerY, Width, _centerY);
-
             // ======= Колесо ========
             // Положение центра колеса по оси X
-            float centerX = _velocity * _time;
+            var centerX = _velocity * _time;
 
             // Центр колеса над осью O_x на радиус выше
-            float centerY = _centerY - _radius;
+            var centerY = _centerY - _radius;
 
             // Рисуем колесо
-            g.DrawEllipse(Pens.Black, centerX - _radius, centerY - _radius, _radius * 2, _radius * 2);
+            g.DrawEllipse(Pens.Red, centerX - _radius, centerY - _radius, _radius * 2, _radius * 2);
 
-            // ======= Траектория точки на ободе (циклоида) ========
+            // Траектория точки на ободе(циклоида)
             // Вращение по часовой стрелке - изменяем знак угловой скорости omega
             var cycloidX = centerX - _radius * (float)Math.Sin(-omega * _time);
             var cycloidY = centerY - _radius * (float)Math.Cos(-omega * _time);
 
-            // Отрисовка текущей точки по циклоиде (одновременно это и точка на колесе)
+            // Отрисовка текущей точки по циклоиде
             g.FillEllipse(Brushes.Blue, cycloidX - 5, cycloidY - 5, 10, 10);
 
-            // Отрисовка траектории точки (циклоида)
+            // Отрисовка траектории точки(циклоида)
             for (float t = 0; t < _time; t += 0.01f)
             {
-                var xt = _velocity * t - _radius * (float)Math.Sin(-omega * t);
+                var xt = omega * t * _radius - _radius * (float)Math.Sin(-omega * t);
                 var yt = centerY - _radius * (float)Math.Cos(-omega * t);
                 g.FillEllipse(Brushes.Blue, xt - 2, yt - 2, 4, 4);
             }
