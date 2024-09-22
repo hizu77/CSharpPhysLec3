@@ -55,7 +55,6 @@ namespace WindowsFormsApp1
             var g = e.Graphics;
             var omega = _velocity / _radius;
 
-            // ====== Оси X и Y с разметкой ======
             // Ось X (время), начиная с (0, центрY)
             g.DrawLine(Pens.Black, 0, _centerY, Width, _centerY);
             g.DrawString("Time (s)", Font, Brushes.Black, Width - 60, _centerY + 20);
@@ -79,7 +78,6 @@ namespace WindowsFormsApp1
                 g.DrawString($"{heightMark}", Font, Brushes.Black, 1, i - 5);
             }
 
-            // ======= Колесо ========
             // Положение центра колеса по оси X
             var centerX = _velocity * _time;
 
